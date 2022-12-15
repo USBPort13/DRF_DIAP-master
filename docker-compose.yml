@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: python /code/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    depends_on:
+      - diap_db
+  diap_db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=laddon
+      - POSTGRES_PASSWORD=3232322ddd
+      - POSTGRES_DB=diap_db
+    ports:
+      - 5400:5432
+
+
+volumes:
+  postgres_data:
